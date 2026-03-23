@@ -1,0 +1,34 @@
+name: Build ChanlunX DLL
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        include:
+          - arch: Win32
+            suffix: x86
+          - arch: x64
+            suffix: x64
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Configure CMake
+      run: cmake -B build -A ${{ matrix.arch }} -DCMAKE_BUILD_TYPE=Release
+
+    - name: Build
+      run: cmake --build build --config Release
+
+    - name: Upload DLL Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: ChanlunX-${{ matrix.suffix }}
+        path: build/Release/ChanlunX.dll
