@@ -58,10 +58,5 @@ NOTEXT_DDUANSE1:STICKLINE(DUANSE1,DUANZD1,DUANZG1,0,0),COLORFF8000;{画段中枢
 
 ## 交流
 
-- 支持作者：https://mp.weixin.qq.com/s/xKBIlmBp9iyYg7wpLc5bPw
-- 给作者充电：http://s.a0c.top/lJ1c8WZ/4KHZ
-- 缠论X星球: https://t.zsxq.com/0aDUuhQC5
-- 纷传圈子：http://s.a0c.top/uHvyCEy/4KHZ
-- WeChat: kldcty
-- QQ: 1106628276
-- 微信公众号: mywildquant
+-
+- QQ: 5942764   272788089
