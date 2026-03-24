@@ -207,7 +207,7 @@ std::vector<Pivot> ZS(int nCount, std::vector<float> pIn, std::vector<float> pHi
                 {
                     i = ZhongShuOne.nEnd - 1;
                 }
-                if (bValid)
+                if (bValid && ZhongShuOne.nStart + 1 < ZhongShuOne.nEnd)
                 {
                     Pivot pivot;
                     pivot.s = ZhongShuOne.nStart;
@@ -215,6 +215,7 @@ std::vector<Pivot> ZS(int nCount, std::vector<float> pIn, std::vector<float> pHi
                     pivot.zg = ZhongShuOne.fHigh;
                     pivot.zd = ZhongShuOne.fLow;
                     pivot.direction = (float)ZhongShuOne.nDirection;
+                    pivot.affirm = true;
                     pivot.gg = *std::max_element(pHigh.begin() + pivot.s + 1, pHigh.begin() + pivot.e, [](float a, float b)
                                                  { return a < b; });
                     pivot.dd = *std::min_element(pLow.begin() + pivot.s + 1, pLow.begin() + pivot.e, [](float a, float b)
@@ -278,7 +279,7 @@ std::vector<Pivot> ZS(int nCount, std::vector<float> pIn, std::vector<float> pHi
                 {
                     i = ZhongShuOne.nEnd - 1;
                 }
-                if (bValid)
+                if (bValid && ZhongShuOne.nStart + 1 < ZhongShuOne.nEnd)
                 {
                     Pivot pivot;
                     pivot.s = ZhongShuOne.nStart;
@@ -286,6 +287,7 @@ std::vector<Pivot> ZS(int nCount, std::vector<float> pIn, std::vector<float> pHi
                     pivot.zg = ZhongShuOne.fHigh;
                     pivot.zd = ZhongShuOne.fLow;
                     pivot.direction = (float)ZhongShuOne.nDirection;
+                    pivot.affirm = true;
                     pivot.gg = *std::max_element(pHigh.begin() + pivot.s + 1, pHigh.begin() + pivot.e, [](float a, float b)
                                                  { return a < b; });
                     pivot.dd = *std::min_element(pLow.begin() + pivot.s + 1, pLow.begin() + pivot.e, [](float a, float b)
@@ -296,7 +298,7 @@ std::vector<Pivot> ZS(int nCount, std::vector<float> pIn, std::vector<float> pHi
             }
         }
     }
-    if (ZhongShuOne.bValid) // 最后一个还没有被终结的中枢。
+    if (ZhongShuOne.bValid && ZhongShuOne.nStart + 1 < ZhongShuOne.nEnd) // 最后一个还没有被终结的中枢。
     {
         Pivot pivot;
         pivot.s = ZhongShuOne.nStart;
@@ -304,6 +306,7 @@ std::vector<Pivot> ZS(int nCount, std::vector<float> pIn, std::vector<float> pHi
         pivot.zg = ZhongShuOne.fHigh;
         pivot.zd = ZhongShuOne.fLow;
         pivot.direction = (float)ZhongShuOne.nDirection;
+        pivot.affirm = false;
         pivot.gg = *std::max_element(pHigh.begin() + pivot.s + 1, pHigh.begin() + pivot.e, [](float a, float b)
                                      { return a < b; });
         pivot.dd = *std::min_element(pLow.begin() + pivot.s + 1, pLow.begin() + pivot.e, [](float a, float b)
