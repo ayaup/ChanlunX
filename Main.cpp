@@ -190,6 +190,26 @@ void Func9(int nCount, float *pOut, float *pIn, float *pHigh, float *pLow)
     }
 }
 
+//=============================================================================
+// 输出函数10号：MACD背驰信号
+// TDX调用: TDXDLL2(10,FRAC,C,H)
+// pIn=笔端点(+1顶/-1底), pClose=收盘价(用于MACD计算), pHigh=最高价(用于顶背驰价格比较)
+// MACD参数: SHORT=10, LONG=20, M=7
+// 输出: pOut[i]=1 顶背驰, pOut[i]=-1 底背驰, pOut[i]=0 无信号
+//=============================================================================
+void Func10(int nCount, float *pOut, float *pIn, float *pClose, float *pHigh)
+{
+    std::vector<float> bi(pIn, pIn + nCount);
+    std::vector<float> close(pClose, pClose + nCount);
+    std::vector<float> high(pHigh, pHigh + nCount);
+    std::vector<float> out = BeiChi(nCount, bi, close, high);
+    memset(pOut, 0, nCount);
+    for (int i = 0; i < nCount; i++)
+    {
+        pOut[i] = out[i];
+    }
+}
+
 static PluginTCalcFuncInfo Info[] =
     {
         {1, &Func1},
@@ -201,6 +221,7 @@ static PluginTCalcFuncInfo Info[] =
         {7, &Func7},
         {8, &Func8},
         {9, &Func9},
+        {10, &Func10},
         {0, NULL}};
 
 BOOL RegisterTdxFunc(PluginTCalcFuncInfo **pInfo)

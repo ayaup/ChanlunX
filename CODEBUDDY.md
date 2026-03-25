@@ -55,11 +55,13 @@ BiChuLi（笔识别）→ Bi1/Bi2（简笔/标准笔）
 Duan（段识别）→ Duan1（标准）/Duan2（1+1终结）
     ↓
 ZhongShu（中枢计算）→ 中枢高/低/起止/方向/序列
+    ↓
+BeiChi（MACD背驰）→ 顶背驰/底背驰信号
 ```
 
 ### DLL 导出函数
 
-插件注册了 9 个导出函数（通过 RegisterTdxFunc），编号 1-9：
+插件注册了 10 个导出函数（通过 RegisterTdxFunc），编号 1-10：
 
 - **Func1**: 简笔顶底端点
 - **Func2**: 标准笔顶底端点
@@ -70,6 +72,7 @@ ZhongShu（中枢计算）→ 中枢高/低/起止/方向/序列
 - **Func7**: 中枢起点、终点信号（起点=1，终点=2）
 - **Func8**: 中枢方向数据
 - **Func9**: 同方向的第几个中枢（序列编号）
+- **Func10**: MACD 背驰信号（1=顶背驰，-1=底背驰，MACD 参数 10/20/7）
 
 所有函数遵循统一签名：`(int nCount, float *pOut, float *a, float *b, float *c)`，其中 nCount 为 K 线数量，pOut 为输出数组。
 
@@ -81,6 +84,7 @@ ZhongShu（中枢计算）→ 中枢高/低/起止/方向/序列
 - `Bi.cpp/h`: 笔计算接口实现
 - `Duan.cpp/h`: 段计算接口实现
 - `ZhongShu.cpp/h`: 中枢计算接口实现
+- `BeiChi.cpp/h`: MACD 背驰检测（MACD 参数 SHORT=10, LONG=20, M=7）
 - `ChanlunXg.h`: 通达信选股接口定义（兼容性）
 - `ChanlunZb.h`: 大智慧/通达信指标接口定义
 
@@ -98,4 +102,8 @@ NOTEXT画上升段:DRAWLINE(DUAN1=-1,L,DUAN1=+1,H,0), COLORFF8000;
 BIZG:=TDXDLL2(5,FRAC,H,L);{中枢高}
 BIZD:=TDXDLL2(6,FRAC,H,L);{中枢低}
 BISE:=TDXDLL2(7,FRAC,H,L);{中枢起止}
+
+MACDBC:=TDXDLL2(10,FRAC,C,H);{MACD背驰信号, 1=顶背驰 -1=底背驰}
+DRAWTEXT(MACDBC=1,H*1.005,'顶背驰'),COLORGREEN;
+DRAWTEXT(MACDBC=-1,L*0.995,'底背驰'),COLORRED;
 ```

@@ -8,5 +8,6 @@
 #include "Bi.h"
 #include "Duan.h"
 #include "ZhongShu.h"
+#include "BeiChi.h"
 
 #endif
